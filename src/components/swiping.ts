@@ -20,18 +20,20 @@ export enum SwipeDirection {
 }
 
 export interface ISwipeHandlers<T> {
-  onSwipeLeft(currentCard: T): void;
-  onSwipeRight(currentCard: T): void;
+  onSwipeLeft(): void;
+  onSwipeRight(): void;
 }
 
+type ResetHandler = () => void;
+
 export function useSwiping<T>(
-  data: T[],
   handlers: Partial<ISwipeHandlers<T>>
 ): [
   GestureResponderHandlers,
   () => {
     [key: string]: Animated.Value | any;
-  }
+  },
+  ResetHandler
 ] {
   const position: Animated.ValueXY = new Animated.ValueXY();
   const panResponder: PanResponderInstance = PanResponder.create({
@@ -51,11 +53,9 @@ export function useSwiping<T>(
   });
 
   function onSwipeCompleted(direction: SwipeDirection) {
-    const item = data[0];
-
     direction === SwipeDirection.RIGHT
-      ? handlers.onSwipeRight!(item)
-      : handlers.onSwipeLeft!(item);
+      ? handlers.onSwipeRight!()
+      : handlers.onSwipeLeft!();
     position.setValue({ x: 0, y: 0 });
   }
 
@@ -85,13 +85,5 @@ export function useSwiping<T>(
     }).start(() => onSwipeCompleted(direction));
   }
 
-  // If item is dismissed, we need to reset the position
-  React.useEffect(
-    function() {
-      resetPosition();
-    },
-    [data.length]
-  );
-
-  return [panResponder.panHandlers, getSwipeContainerStyle];
+  return [panResponder.panHandlers, getSwipeContainerStyle, resetPosition];
 }

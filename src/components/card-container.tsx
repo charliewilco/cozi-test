@@ -1,21 +1,32 @@
 import * as React from "react";
 import { View, Animated } from "react-native";
 
-import { useSwiping, ISwipeHandlers } from "./swiping";
+import { useSwiping } from "./swiping";
 
-interface ICardContainerProps<T> extends Partial<ISwipeHandlers<T>> {
+interface ICardContainerProps<T> {
   data: T[];
   renderEmpty(): JSX.Element;
   renderCard(item: T): JSX.Element;
+  onSwipeLeft(item: T): void;
+  onSwipeRight(item: T): void;
 }
 
 export default function CardContainer<T>(
   props: ICardContainerProps<T>
 ): JSX.Element {
-  const [panHandlers, getStyle] = useSwiping<T>(props.data, {
-    onSwipeLeft: props.onSwipeLeft,
-    onSwipeRight: props.onSwipeRight
+  const datum = props.data[0];
+  const [panHandlers, getStyle, resetPosition] = useSwiping<T>({
+    onSwipeLeft: () => props.onSwipeLeft(datum),
+    onSwipeRight: () => props.onSwipeRight(datum)
   });
+
+  // If item is dismissed, we need to reset the position
+  React.useEffect(
+    function() {
+      resetPosition();
+    },
+    [props.data.length]
+  );
 
   function renderSingleCard() {
     const datum = props.data[0];
