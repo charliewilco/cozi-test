@@ -1,0 +1,29 @@
+{
+  "name": "cozi-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Charles ⚡ <charlespeters42@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel index.html"
+  },
+  "dependencies": {
+    "@types/lodash-es": "^4.17.3",
+    "formik": "^1.5.8",
+    "lodash-es": "^4.17.15",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-native-web": "^0.11.5",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "@types/react-native": "^0.60.3",
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.5.3"
+  },
+  "alias": {
+    "react-native": "react-native-web"
+  }
+}
