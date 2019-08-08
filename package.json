@@ -5,6 +5,7 @@
   "author": "Charles ⚡ <charlespeters42@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "parcel build index.html",
     "dev": "parcel index.html"
   },
   "dependencies": {
