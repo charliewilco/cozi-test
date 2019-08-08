@@ -15,7 +15,7 @@ export function Saved(): JSX.Element {
     setCurrentPage(Pages.CURRENT_PET);
   }
 
-  return (
+  return state.saved.length > 0 ? (
     <FlatList<IPet>
       ListEmptyComponent={Empties.Saved}
       data={state.saved}
@@ -27,5 +27,7 @@ export function Saved(): JSX.Element {
         />
       )}
     />
+  ) : (
+    <Empties.Saved />
   );
 }
