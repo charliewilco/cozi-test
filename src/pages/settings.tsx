@@ -8,7 +8,8 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import { Formik, FormikProps } from "formik";
 import { useAppState, ISettings } from "../context";
